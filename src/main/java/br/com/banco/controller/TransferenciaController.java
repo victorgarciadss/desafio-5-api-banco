@@ -39,4 +39,10 @@ public class TransferenciaController {
         List<Transferencia> transferencias = transferenciaService.getTransferencesByName(periodoDto);
         return ResponseEntity.status(200).body(transferencias);
     }
+
+    @PostMapping("/periodo-nome")
+    public ResponseEntity<List<Transferencia>> getAllTransferencesWithFilters(@RequestBody PeriodoDto periodoDto){
+        List<Transferencia> transferencias = transferenciaService.getTransferencesByDatesAndOperatorName(periodoDto);
+        return ResponseEntity.status(200).body(transferencias);
+    }
 }

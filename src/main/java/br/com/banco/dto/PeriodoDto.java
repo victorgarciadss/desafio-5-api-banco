@@ -2,6 +2,7 @@ package br.com.banco.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
@@ -17,12 +18,13 @@ public class PeriodoDto {
     private String dataFim;
     private String nomeOperadorTransacao;
 
-    public LocalDateTime getDataInicio(){
-        return LocalDate.parse(dataInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy")).atStartOfDay();
+    public LocalDateTime getDataInicio() {
+        LocalDate date = LocalDate.parse(dataInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return date.atStartOfDay();
     }
 
-    public LocalDateTime getDataFim(){
-        return LocalDate.parse(dataFim, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-            .atStartOfDay().plusDays(1).minusSeconds(1);
+    public LocalDateTime getDataFim() {
+        LocalDate date = LocalDate.parse(dataFim, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return date.atTime(LocalTime.MAX);
     }
 }

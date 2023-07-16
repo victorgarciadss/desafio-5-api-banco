@@ -34,4 +34,13 @@ public class TransferenciaService {
         String nomeOperadorTransacao = periodoDto.getNomeOperadorTransacao();
         return transferenciaRepository.findByNomeOperadorTransacao(nomeOperadorTransacao);
     }
+
+    public List<Transferencia> getTransferencesByDatesAndOperatorName(PeriodoDto periodoDto){
+        String nomeOperadorTransferencia = periodoDto.getNomeOperadorTransacao();
+        LocalDateTime dataInicio = periodoDto.getDataInicio();
+        LocalDateTime dataFim = periodoDto.getDataFim();
+
+        return transferenciaRepository
+            .findByOperatorNameAndTransferencesBetween(nomeOperadorTransferencia, dataInicio, dataFim);
+    }
 }
