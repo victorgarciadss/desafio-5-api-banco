@@ -22,27 +22,26 @@ public class TransferenciaController {
     @Autowired
     private TransferenciaService transferenciaService;
 
+    @GetMapping
+    public List<Transferencia> gettAllTransferences(){
+        return transferenciaService.getAllTransferences();
+    }
+
     @GetMapping("/conta/{id}")
     public ResponseEntity<List<Transferencia>> getAllTransferencesByCountId(@PathVariable Long id){
         List<Transferencia> transferencias = transferenciaService.getAllTransferencesByCountId(id);
         return ResponseEntity.ok(transferencias);
     }
 
-    @PostMapping("/periodo")
+    @PostMapping("/nome")
     public ResponseEntity<List<Transferencia>> getAllTransferencesBetweenDates(@RequestBody PeriodoDto periodoDto){
-        List<Transferencia> transferencias = transferenciaService.getTransferencesBetweenDates(periodoDto);
+        List<Transferencia> transferencias = transferenciaService.getTransferencesByOperatorName(periodoDto);
         return ResponseEntity.ok(transferencias);
     }
 
-    @PostMapping("/nome-operador")
-    public ResponseEntity<List<Transferencia>> getAllTransferencesByOperatorName(@RequestBody PeriodoDto periodoDto){
-        List<Transferencia> transferencias = transferenciaService.getTransferencesByName(periodoDto);
-        return ResponseEntity.status(200).body(transferencias);
-    }
-
-    @PostMapping("/periodo-nome")
+    @PostMapping("/periodo")
     public ResponseEntity<List<Transferencia>> getAllTransferencesWithFilters(@RequestBody PeriodoDto periodoDto){
-        List<Transferencia> transferencias = transferenciaService.getTransferencesByDatesAndOperatorName(periodoDto);
+        List<Transferencia> transferencias = transferenciaService.getTransferencesWithDatesFilter(periodoDto);
         return ResponseEntity.status(200).body(transferencias);
     }
 }

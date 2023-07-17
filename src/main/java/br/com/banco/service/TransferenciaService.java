@@ -18,29 +18,34 @@ public class TransferenciaService {
     @Autowired
     private TransferenciaRepository transferenciaRepository;
 
+    public List<Transferencia> getAllTransferences(){
+        return transferenciaRepository.findAll();
+    }
+
     public List<Transferencia> getAllTransferencesByCountId(Long id){
         Conta conta = new Conta();
         conta.setIdConta(id);
         return transferenciaRepository.findByConta(conta);
     }
 
-    public List<Transferencia> getTransferencesBetweenDates(PeriodoDto peridoDto){
-        LocalDateTime dataInicio = peridoDto.getDataInicio();
-        LocalDateTime dataFim = peridoDto.getDataFim();
-        return transferenciaRepository.findByDataTransferenciaBetween(dataInicio, dataFim);
+    public List<Transferencia> getTransferencesByOperatorName(PeriodoDto peridoDto){
+        String nomeOperadorTransferencia = peridoDto.getNomeOperadorTransacao();
+
+        return transferenciaRepository.findByNomeOperadorTransacao(nomeOperadorTransferencia); 
     }
 
-    public List<Transferencia> getTransferencesByName(PeriodoDto periodoDto){
-        String nomeOperadorTransacao = periodoDto.getNomeOperadorTransacao();
-        return transferenciaRepository.findByNomeOperadorTransacao(nomeOperadorTransacao);
-    }
-
-    public List<Transferencia> getTransferencesByDatesAndOperatorName(PeriodoDto periodoDto){
-        String nomeOperadorTransferencia = periodoDto.getNomeOperadorTransacao();
+    public List<Transferencia> getTransferencesWithDatesFilter(PeriodoDto periodoDto){
         LocalDateTime dataInicio = periodoDto.getDataInicio();
         LocalDateTime dataFim = periodoDto.getDataFim();
+         String nomeOperadorTransferencia = periodoDto.getNomeOperadorTransacao();
 
-        return transferenciaRepository
+        if(dataInicio != null && dataFim != null && nomeOperadorTransferencia != ""){
+            return transferenciaRepository
             .findByOperatorNameAndTransferencesBetween(nomeOperadorTransferencia, dataInicio, dataFim);
+        }
+        
+        return transferenciaRepository.findByDataTransferenciaBetween(dataInicio, dataFim);
+        
     }
+
 }

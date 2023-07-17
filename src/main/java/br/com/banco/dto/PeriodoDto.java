@@ -19,12 +19,12 @@ public class PeriodoDto {
     private String nomeOperadorTransacao;
 
     public LocalDateTime getDataInicio() {
-        LocalDate date = LocalDate.parse(dataInicio, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate date = LocalDate.parse(dataInicio, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         return date.atStartOfDay();
     }
 
     public LocalDateTime getDataFim() {
-        LocalDate date = LocalDate.parse(dataFim, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate date = LocalDate.parse(dataFim, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         return date.atTime(LocalTime.MAX);
     }
 }
