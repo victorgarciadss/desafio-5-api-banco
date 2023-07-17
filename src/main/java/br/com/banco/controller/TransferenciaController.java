@@ -33,6 +33,11 @@ public class TransferenciaController {
         return ResponseEntity.ok(transferencias);
     }
 
+    @GetMapping("/saldo")
+    public Double getTotalBalance(){
+        return transferenciaService.getTotalBalance();
+    }
+
     @PostMapping("/nome")
     public ResponseEntity<List<Transferencia>> getAllTransferencesBetweenDates(@RequestBody PeriodoDto periodoDto){
         List<Transferencia> transferencias = transferenciaService.getTransferencesByOperatorName(periodoDto);

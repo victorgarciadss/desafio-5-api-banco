@@ -21,4 +21,10 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, Lo
     List<Transferencia> findByOperatorNameAndTransferencesBetween(
         @Param("nome") String nome, @Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim)
     ;
+
+    @Query(nativeQuery = true, value = "SELECT SUM(valor) FROM transferencia")
+    Double getTotalBalance();
+
+    @Query(nativeQuery = true, value = "SELECT SUM(valor) FROM transferencia WHERE data_transferencia BETWEEN :dataInicio AND :dataFim")
+    Double getBalanceByTime(LocalDateTime dataInicio, LocalDateTime dataFim);
 }

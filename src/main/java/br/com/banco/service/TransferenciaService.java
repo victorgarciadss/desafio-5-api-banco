@@ -22,6 +22,10 @@ public class TransferenciaService {
         return transferenciaRepository.findAll();
     }
 
+    public Double getTotalBalance(){
+        return transferenciaRepository.getTotalBalance();
+    }
+
     public List<Transferencia> getAllTransferencesByCountId(Long id){
         Conta conta = new Conta();
         conta.setIdConta(id);
@@ -37,13 +41,13 @@ public class TransferenciaService {
     public List<Transferencia> getTransferencesWithDatesFilter(PeriodoDto periodoDto){
         LocalDateTime dataInicio = periodoDto.getDataInicio();
         LocalDateTime dataFim = periodoDto.getDataFim();
-         String nomeOperadorTransferencia = periodoDto.getNomeOperadorTransacao();
+        String nomeOperadorTransferencia = periodoDto.getNomeOperadorTransacao();
 
         if(dataInicio != null && dataFim != null && nomeOperadorTransferencia != ""){
             return transferenciaRepository
             .findByOperatorNameAndTransferencesBetween(nomeOperadorTransferencia, dataInicio, dataFim);
         }
-        
+
         return transferenciaRepository.findByDataTransferenciaBetween(dataInicio, dataFim);
         
     }
