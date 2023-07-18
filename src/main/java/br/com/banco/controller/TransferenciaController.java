@@ -46,14 +46,22 @@ public class TransferenciaController {
 
 
     @PostMapping("/nome")
-    public ResponseEntity<List<Transferencia>> getAllTransferencesBetweenDates(@RequestBody PeriodoDto periodoDto){
-        List<Transferencia> transferencias = transferenciaService.getTransferencesByOperatorName(periodoDto);
+    public ResponseEntity<List<Transferencia>> getAllTransferencesBetweenDates(
+        @RequestBody PeriodoDto periodoDto
+    ){
+        List<Transferencia> transferencias = transferenciaService
+            .getTransferencesByOperatorName(periodoDto);
+            
         return ResponseEntity.ok(transferencias);
     }
 
     @PostMapping("/periodo")
-    public ResponseEntity<List<Transferencia>> getAllTransferencesWithFilters(@RequestBody PeriodoDto periodoDto){
-        List<Transferencia> transferencias = transferenciaService.getTransferencesWithDatesFilter(periodoDto);
+    public ResponseEntity<List<Transferencia>> getAllTransferencesWithFilters(
+        @RequestBody PeriodoDto periodoDto
+    ){
+        List<Transferencia> transferencias = transferenciaService
+            .getTransferencesWithDatesFilter(periodoDto);
+
         return ResponseEntity.status(200).body(transferencias);
     }
 }
