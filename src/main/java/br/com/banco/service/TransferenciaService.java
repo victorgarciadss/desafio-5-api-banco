@@ -26,6 +26,12 @@ public class TransferenciaService {
         return transferenciaRepository.getTotalBalance();
     }
 
+    public Double getBalanceaByTime(PeriodoDto periodoDto){
+        LocalDateTime dataInicio = periodoDto.getDataInicio();
+        LocalDateTime dataFim = periodoDto.getDataFim();
+        return transferenciaRepository.getBalanceByTime(dataInicio, dataFim);
+    }
+
     public List<Transferencia> getAllTransferencesByCountId(Long id){
         Conta conta = new Conta();
         conta.setIdConta(id);
